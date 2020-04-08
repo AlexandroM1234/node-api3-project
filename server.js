@@ -1,19 +1,23 @@
-// const express = require("express");
+const express = require("express");
+const userRouter = require("./users/userRouter");
+const server = express();
 
-// const server = express();
+// middleware
+server.use(logger);
 
-// server.use(express.json());
+server.use(express.json());
 
-// server.get("/", (req, res) => {
-//   res.send(`<h2>Let's write some middleware!</h2>`);
-// });
+server.use("/api/users", userRouter);
 
-// //custom middleware
+server.get("/", (req, res) => {
+  res.send(`<h2>Let's write some middleware!</h2>`);
+});
 
-// function logger(req, res, next) {}
+//custom middleware
 
-// module.exports = server;
+function logger(req, res, next) {
+  console.log(`${req.method} Request to ${req.origninalUrl}`);
+  next();
+}
 
-// server.listen(4000, () => {
-//   console.log("\n=== Server is Running on Port 4000 ===\n");
-// });
+module.exports = server;
