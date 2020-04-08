@@ -1,13 +1,19 @@
-const express = require('express');
+// const express = require("express");
 
-const server = express();
+// const server = express();
 
-server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
-});
+// server.use(express.json());
 
-//custom middleware
+// server.get("/", (req, res) => {
+//   res.send(`<h2>Let's write some middleware!</h2>`);
+// });
 
-function logger(req, res, next) {}
+// //custom middleware
 
-module.exports = server;
+// function logger(req, res, next) {}
+
+// module.exports = server;
+
+// server.listen(4000, () => {
+//   console.log("\n=== Server is Running on Port 4000 ===\n");
+// });
