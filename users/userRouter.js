@@ -93,10 +93,40 @@ router.get("/:id/posts", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // do your magic!
+  Users.remove(req.params.id)
+    .then((removedPost) => {
+      if (removedPost) {
+        res.status(200).json({ message: "post has been removed" });
+      } else if (!removedPost) {
+        res.status(404).json({ error: "The post with this ID doesn't exist" });
+      } else {
+        res.status(500).json({ error: "post cannot be removed" });
+      }
+    })
+    .catch((err) => {
+      console.log("messed up the delete", err);
+    });
 });
 
 router.put("/:id", (req, res) => {
   // do your magic!
+  const { id } = req.params;
+  const changes = req.body;
+  const { name } = req.body;
+
+  Users.update(id, changes)
+    .then((user) => {
+      if (user) {
+        res.status(201).json(changes);
+      } else if (!name) {
+        res.status(400).json({ message: "name is a required field" });
+      } else {
+        res.status(500).json({ error: "error trying to update user" });
+      }
+    })
+    .catch((err) => {
+      console.log("error changing data", err);
+    });
 });
 
 //custom middleware
