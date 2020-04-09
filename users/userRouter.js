@@ -2,6 +2,8 @@ const express = require("express");
 const Users = require("./userDb");
 const router = express.Router();
 
+router.use(validateUser);
+
 router.post("/", (req, res) => {
   // do your magic!
   const { name } = req.body;
@@ -22,6 +24,7 @@ router.post("/", (req, res) => {
     });
 });
 
+router.use(validatePost);
 router.post("/:id/posts", (req, res) => {
   // do your magic!
   const newPost = req.body;
@@ -55,6 +58,7 @@ router.get("/", (req, res) => {
     });
 });
 
+router.use(validateUserId);
 router.get("/:id", (req, res) => {
   // do your magic!
   Users.getById(req.params.id)
